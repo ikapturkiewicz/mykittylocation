@@ -1,0 +1,11 @@
+@using Microsoft.AspNetCore.Identity
+@using Amazon.Extensions.CognitoAuthentication
+
+@inject SignInManager<CognitoUser> SignInManager
+@inject UserManager<CognitoUser> UserManager
+
+
+    <ul class="nav navbar-nav navbar-right">
+        <li><a asp-action="Logout">Wyloguj</a></li>
+        
+    </ul>

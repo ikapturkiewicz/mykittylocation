@@ -1,0 +1,24 @@
+
+{
+    "region" : "eu-west-1",
+    "configuration" : "Debug",
+    "framework"     : "netcoreapp3.1",
+    "self-contained" : false,
+    "application"    : "MyKittyLocation",
+    "environment"    : "MyKittyLocation-prod",
+    "enable-xray"    : false,
+    "enhanced-health-type" : "basic",
+    "additional-options"   : "\"aws:autoscaling:launchconfiguration,SecurityGroups\"=\"sg-06763a8eac268921f\";\"aws:ec2:vpc,Subnets\"=\"subnet-09ff74c324bf7e2ab,subnet-07c43c9f4b51d1b1a\"",
+    "proxy-server"         : "nginx",
+    "solution-stack"       : "64bit Amazon Linux 2 v2.0.2 running .NET Core",
+    "environment-type"     : "SingleInstance",
+    "cname"                : "mykittylocation",
+    "instance-type"        : "t2.micro",
+    "key-pair"             : "kitty-db-ec2-keypair",
+    "instance-profile"     : "AllAccessRole",
+    "service-role"         : "aws-elasticbeanstalk-service-role",
+    "profile"              : "iwokap",
+    "health-check-url"     : "/",
+    "iis-website"          : "Default Web Site",
+    "app-path"             : "/"
+}

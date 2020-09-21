@@ -1,0 +1,40 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+@using Amazon.Extensions.CognitoAuthentication
+@inject SignInManager<CognitoUser> SignInManager
+@inject UserManager<CognitoUser> UserManager
+@model IEnumerable<MyKittyLocation.Models.CatModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="display-4">Twoje Kotki</h1>
+
+<p>
+    <a class="btn btn-outline-info" asp-action="Create">Dodaj kotka i sprawdź gdzie spędza czas! </a>
+</p>
+
+@if (!Model.Any())
+{
+    <h4>Nie masz jeszcze dodanych kotów</h4>
+}
+else
+{
+    <table class="table table-responsive table-hover">
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="width:65%">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td style="width:35%">
+                        @Html.ActionLink("Zobacz", "Details", new { id = item.CatId }, new { @class = "btn btn-info" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

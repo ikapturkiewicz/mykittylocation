@@ -1,0 +1,66 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Amazon.Extensions.CognitoAuthentication
+@inject SignInManager<CognitoUser> SignInManager
+@inject UserManager<CognitoUser> UserManager
+@model MyKittyLocation.Models.CatModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1 class="display-4">Dodaj kotka</h1>
+
+<h4>Uzupełnij dane i obserwuj gdzie biega Twoj kot!</h4>
+<hr />
+<div class="form">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CollarId"></label>
+                <input asp-for="CollarId" class="form-control" />
+                <span asp-validation-for="CollarId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input id="txtName" asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+
+                <label asp-for="Photo" class="control-label"></label>
+                <input asp-for="Photo" type="file" id="Photo" name="Photo" class="upload" onchange=DisplayFilesToUpload() multiple />
+                <span asp-validation-for="Photo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <a class="btn btn-dark" asp-action="Index">Powrót</a>
+                <input type="submit" value="Dodaj" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<script>
+    function DisplayFilesToUpload() {
+        var element = document.getElementById("file");
+        var html = "";
+
+        html = "<h3>Image(s) to Upload</h3>"
+        for (var i = 0; i < element.files.length; i++) {
+            html += "<strong>" + (i + 1) + "</strong>. File: ";
+            var file = element.files[i];
+            if ('name' in file) { html += file.name + " ("; }
+            if ('size' in file) { html += "size: " + file.size + " bytes)<br>"; }
+        }
+
+        html += "<div class='fileUpload btn btn-default'><span>Upload</span><input type='submit' class='upload' value='Upload'/></div>"
+        document.getElementById("FilesToUpload").innerHTML = html;
+    }
+</script>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

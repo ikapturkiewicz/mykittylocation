@@ -1,0 +1,54 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Amazon.Extensions.CognitoAuthentication
+@inject SignInManager<CognitoUser> SignInManager
+@inject UserManager<CognitoUser> UserManager
+@model IEnumerable<MyKittyLocation.Models.CatModel>
+
+@{
+    ViewData["Title"] = "CatOnTheGoogleMap";
+}
+
+<title>@ViewBag.Title</title>
+
+<h1 class="display-4">Tutaj jest!</h1>
+<fieldset>
+    <legend>Ale łobuz!</legend>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <div id="googleMap" style="height:500px;width:100%;"></div>
+    <script>
+
+
+
+        function getRndInteger(min, max) {
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
+
+        function myMap() {
+
+            var minLat = 49298;
+            var maxLat = 54861;
+            var minLng = 23893;
+            var maxLng = 14174;
+
+            var lat = getRndInteger(minLat, maxLat) / 1000;
+            var lng = getRndInteger(minLng, maxLng) / 1000;
+
+            var myCenter = new google.maps.LatLng(lat, lng);
+            var mapProp = { center: myCenter, zoom: 12, scrollwheel: false, draggable: true, mapTypeId: google.maps.MapTypeId.ROADMAP };
+            var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+            var marker = new google.maps.Marker({ position: myCenter });
+            marker.setMap(map);
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?AIzaSyDn1TAhuRtX0BZhMAKAjciObdPiqrwVsvg&callback=myMap"></script>
+</fieldset>
+<footer>
+    <p>© @DateTime.Now.ToLocalTime()</p>
+</footer> 
